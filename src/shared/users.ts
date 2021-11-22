@@ -1,6 +1,6 @@
 import { User } from './user.interface';
 
-export const Users: User[] = [
+export const users: User[] = [
   {
     name: 'Kaufman',
     lastName: 'Britt',
@@ -10,6 +10,11 @@ export const Users: User[] = [
     phoneNumber: '+1 (922) 480-3988',
     address: '370 Rose Street, Neibert, Oregon, 6286',
     dateOfBirth: '1994-05-21',
+    hobbies: [
+      '6193ce84e806ff3cbc4521fe',
+      '6193ce846eed7ffbaa5a26b2',
+      '6193ce84e3ef251bb52871b6',
+    ],
   },
   {
     name: 'Cecelia',
@@ -20,7 +25,7 @@ export const Users: User[] = [
     phoneNumber: '+1 (941) 535-2271',
     address: '472 Schweikerts Walk, Clara, Maine, 9933',
     dateOfBirth: '1990-04-04',
-    // hobbies: [{id: '6193ce843cd350c9a18b5b32'}],
+    hobbies: ['6193ce843cd350c9a18b5b32'],
   },
   {
     name: 'Cabrera',
@@ -31,12 +36,12 @@ export const Users: User[] = [
     phoneNumber: '+1 (999) 497-2758',
     address: '703 Lexington Avenue, Manitou, North Carolina, 3497',
     dateOfBirth: '1996-05-25',
-    // hobbies: [
-    //   '6193ce84e806ff3cbc4521fe',
-    //   '6193ce84fddf0ea59cd715cc',
-    //   '6193ce843502e8f81392a69c',
-    //   '6193ce8499ba67b92d63c9be',
-    // ],
+    hobbies: [
+      '6193ce84e806ff3cbc4521fe',
+      '6193ce84fddf0ea59cd715cc',
+      '6193ce843502e8f81392a69c',
+      '6193ce8499ba67b92d63c9be',
+    ],
   },
   {
     name: 'Adkins',
@@ -47,7 +52,7 @@ export const Users: User[] = [
     phoneNumber: '+1 (972) 508-2167',
     address: '883 Adelphi Street, Graball, Michigan, 4021',
     dateOfBirth: '1988-08-03',
-    // hobbies: ['6193ce840b1d30d78d2e1413', '6193ce8404766c242ca1f3c4'],
+    hobbies: ['6193ce840b1d30d78d2e1413', '6193ce8404766c242ca1f3c4'],
   },
   {
     name: 'Frieda',
@@ -58,7 +63,7 @@ export const Users: User[] = [
     phoneNumber: '+1 (872) 585-3698',
     address: '759 Alton Place, Wakulla, New Jersey, 2365',
     dateOfBirth: '1990-10-31',
-    // hobbies: ['6193ce8497316f30f74b3417', '6193ce84afce6bc5d4a85896'],
+    hobbies: ['6193ce8497316f30f74b3417', '6193ce84afce6bc5d4a85896'],
   },
   {
     name: 'Barbara',
@@ -69,7 +74,7 @@ export const Users: User[] = [
     phoneNumber: '+1 (856) 537-2727',
     address: '524 Greenwood Avenue, Vienna, Ohio, 6804',
     dateOfBirth: '1987-06-27',
-    // hobbies: ['6193ce84664fa255ffa6f5ab'],
+    hobbies: ['6193ce84664fa255ffa6f5ab'],
   },
   {
     name: 'Sanford',
@@ -80,7 +85,7 @@ export const Users: User[] = [
     phoneNumber: '+1 (953) 591-2493',
     address: '607 Rugby Road, Bonanza, West Virginia, 4760',
     dateOfBirth: '1985-11-22',
-    // hobbies: ['6193ce84664fa255ffa6f5ab'],
+    hobbies: ['6193ce84664fa255ffa6f5ab'],
   },
   {
     name: 'Tamera',
@@ -91,7 +96,7 @@ export const Users: User[] = [
     phoneNumber: '+1 (829) 594-3885',
     address: '526 Loring Avenue, Stouchsburg, South Carolina, 8480',
     dateOfBirth: '1985-05-29',
-    // hobbies: ['6193ce848efd2ab0b5c40c40'],
+    hobbies: ['6193ce848efd2ab0b5c40c40'],
   },
   {
     name: 'Velazquez',
@@ -102,11 +107,11 @@ export const Users: User[] = [
     phoneNumber: '+1 (828) 408-2397',
     address: '736 McDonald Avenue, Shaft, Rhode Island, 9824',
     dateOfBirth: '1989-07-31',
-    // hobbies: [
-    //   '6193ce84b7005764ba679f09',
-    //   '6193ce843cd350c9a18b5b32',
-    //   '6193ce848efd2ab0b5c40c40',
-    // ],
+    hobbies: [
+      '6193ce84b7005764ba679f09',
+      '6193ce843cd350c9a18b5b32',
+      '6193ce848efd2ab0b5c40c40',
+    ],
   },
   {
     name: 'Nadia',
@@ -117,12 +122,12 @@ export const Users: User[] = [
     phoneNumber: '+1 (926) 439-3888',
     address: '453 Lorimer Street, Fannett, Puerto Rico, 7120',
     dateOfBirth: '1986-02-11',
-    // hobbies: [
-    //   '6193ce8497316f30f74b3417',
-    //   '6193ce84b7005764ba679f09',
-    //   '6193ce843cd350c9a18b5b32',
-    //   '6193ce848efd2ab0b5c40c40',
-    // ],
+    hobbies: [
+      '6193ce8497316f30f74b3417',
+      '6193ce84b7005764ba679f09',
+      '6193ce843cd350c9a18b5b32',
+      '6193ce848efd2ab0b5c40c40',
+    ],
   },
   {
     name: 'Maddox',
@@ -133,7 +138,7 @@ export const Users: User[] = [
     phoneNumber: '+1 (891) 527-2680',
     address: '221 Paerdegat Avenue, Caspar, Montana, 3456',
     dateOfBirth: '1998-03-10',
-    // hobbies: ['6193ce845991d72ae6cde610', '6193ce84d39a680aa475155a'],
+    hobbies: ['6193ce845991d72ae6cde610', '6193ce84d39a680aa475155a'],
   },
   {
     name: 'Michelle',
@@ -144,6 +149,36 @@ export const Users: User[] = [
     phoneNumber: '+1 (800) 405-3292',
     address: '747 Newkirk Avenue, Brandywine, American Samoa, 2889',
     dateOfBirth: '1974-08-11',
-    // hobbies: ['6193ce846eed7ffbaa5a26b2'],
+    hobbies: ['6193ce846eed7ffbaa5a26b2'],
+  },
+  {
+    name: 'Greene',
+    lastName: 'Montgomery',
+    email: 'greenemontgomery@ramjob.com',
+    age: 24,
+    gender: 'male',
+    phoneNumber: '+1 (849) 412-3928',
+    address: '906 Herkimer Court, Ilchester, Wyoming, 7890',
+    dateOfBirth: '1975-07-12',
+    hobbies: [
+      '6193ce8497316f30f74b3417',
+      '6193ce84b7005764ba679f09',
+      '6193ce843cd350c9a18b5b32',
+      '6193ce848efd2ab0b5c40c40',
+      '6193ce84b7005764ba679f09',
+      '6193ce843cd350c9a18b5b32',
+      '6193ce848efd2ab0b5c40c40',
+    ],
+  },
+  {
+    name: 'Katina',
+    lastName: 'Kidd',
+    email: 'xxortox.ortex9@seekmore.site',
+    age: 38,
+    gender: 'female',
+    phoneNumber: '+1 (801) 510-2599',
+    address: '408 Harwood Place, Veguita, New York, 2326',
+    dateOfBirth: '1977-12-15',
+    hobbies: ['6193ce84e806ff3cbc4521fe'],
   },
 ];
