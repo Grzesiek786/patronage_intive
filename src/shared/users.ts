@@ -20,7 +20,7 @@ export const Users: User[] = [
     phoneNumber: '+1 (941) 535-2271',
     address: '472 Schweikerts Walk, Clara, Maine, 9933',
     dateOfBirth: '1990-04-04',
-    // hobbies: ['6193ce843cd350c9a18b5b32'],
+    // hobbies: [{id: '6193ce843cd350c9a18b5b32'}],
   },
   {
     name: 'Cabrera',

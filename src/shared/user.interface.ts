@@ -1,4 +1,4 @@
-import { Hobby } from "./hobby.interface";
+import { Hobby } from './hobby.interface';
 
 export interface User {
   name: string;
@@ -9,5 +9,5 @@ export interface User {
   phoneNumber: string;
   address: string;
   dateOfBirth: string;
-  // hobbies: Hobby;
+  // hobbies: Hobby[];
 }
