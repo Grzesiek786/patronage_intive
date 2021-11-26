@@ -56,14 +56,20 @@ export class UsersComponent extends Destroyable implements OnInit {
   }
 
   private comparingHobbies(user: User[], hobby: Hobby[]): void {
-    const res = user.filter((user: User) => {
-      return !hobby.some((hobby: Hobby) => {
-        for (let i = 0; i < user.hobbies.length; i++) {
-          if (user.hobbies[i] === hobby.id) {
-            console.log(hobby.name);
-          }
-        }
-      });
+    // TODO: tuaj też musimy popracować ale to wydaje mi się, że później, jak już ogarniemy pobieranie danych z backendu
+    const res = user.map((user: User) => {
+      // return !hobby.some((hobby: Hobby) => {
+      //   // for (let i = 0; i < user.hobbies.length; i++) {
+      //   //   if (user.hobbies[i] === hobby.id) {
+      //   //     console.log(hobby.name);
+      //   //   }
+      //   // }
+      // });
+      if (user.hobbies) user.hobbies.map((hobby: string) => {});
     });
+    // const users = this.usersService.fetchUsers().map(user => {
+    //   if (user.hobbies) user.hobbies.map(hobby => this.hobbiesService.findById(hobby))
+    //   return user
+    // })
   }
 }
