@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { hobbies } from 'src/shared/hobbies';
 import { Hobby } from 'src/shared/hobby.interface';
 
@@ -6,11 +8,13 @@ import { Hobby } from 'src/shared/hobby.interface';
   providedIn: 'root',
 })
 export class HobbiesService {
-  private hobbies: Hobby[] = hobbies;
-  
-  constructor() {}
+  private apiUrl = 'http://localhost:3000/hobbies';
+  private hobbies$: Observable<Hobby[]> = of(hobbies);
 
-  public fetchHobbies(): Hobby[] {
-    return this.hobbies;
+  constructor(private http: HttpClient) {}
+
+  public fetchHobbies(): Observable<Hobby[]> {
+    this.hobbies$ = this.http.get<Hobby[]>(this.apiUrl);
+    return this.hobbies$;
   }
 }
