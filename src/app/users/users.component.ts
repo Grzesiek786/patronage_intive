@@ -6,6 +6,7 @@ import { HobbiesService } from '../services/hobbies.service';
 import { UsersService } from '../services/users.service';
 import { Destroyable } from '../shared/destroyable';
 import { takeUntil } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -13,10 +14,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent extends Destroyable implements OnInit {
-  private hobbies: Hobby[] = [];
-  private users: User[] = [];
-
-  public hobbiesArray: Hobby[] = [];
+  public hobbies: Hobby[] = [];
 
   public displayedColumns: string[] = [
     'name',
@@ -39,37 +37,27 @@ export class UsersComponent extends Destroyable implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.comparingHobbies(this.users, this.hobbies);
-    this.usersService
-      .fetchUsers()
+    const users$: Observable<User[]> = this.usersService.fetchUsers();
+    const hobbies$: Observable<Hobby[]> = this.hobbiesService.fetchHobbies();
+
+    combineLatest([users$, hobbies$])
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((user: User[]) => {
-        this.users = user;
-        this.dataSource = new MatTableDataSource<User>(this.users);
-      });
-    this.hobbiesService
-      .fetchHobbies()
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe((hobby: Hobby[]) => {
-        this.hobbies = hobby;
-      });
+      .subscribe(([users, hobbies]) =>
+        this.handleUserWithHobbiesSubscription(users, hobbies)
+      );
   }
 
-  private comparingHobbies(user: User[], hobby: Hobby[]): void {
-    // TODO: tuaj też musimy popracować ale to wydaje mi się, że później, jak już ogarniemy pobieranie danych z backendu
-    const res = user.map((user: User) => {
-      // return !hobby.some((hobby: Hobby) => {
-      //   // for (let i = 0; i < user.hobbies.length; i++) {
-      //   //   if (user.hobbies[i] === hobby.id) {
-      //   //     console.log(hobby.name);
-      //   //   }
-      //   // }
-      // });
-      if (user.hobbies) user.hobbies.map((hobby: string) => {});
+  private handleUserWithHobbiesSubscription(users: User[], hobbies: Hobby[]): void {
+    users.forEach((user: User) => {
+      if (!user.hobbyNames) {
+        user.hobbyNames = [];
+      }
+
+      user.hobbies.forEach((hobbyName: string) => {
+        const foundHobby: Hobby = hobbies.find((searchedHobby: Hobby) => searchedHobby.id === hobbyName);
+        user.hobbyNames.push(foundHobby.name);
+      });
     });
-    // const users = this.usersService.fetchUsers().map(user => {
-    //   if (user.hobbies) user.hobbies.map(hobby => this.hobbiesService.findById(hobby))
-    //   return user
-    // })
+    this.dataSource = new MatTableDataSource<User>(users);
   }
 }

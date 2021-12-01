@@ -1,20 +1,15 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { hobbies } from 'src/shared/hobbies';
+import { Observable } from 'rxjs';
 import { Hobby } from 'src/shared/hobby.interface';
+import { HttpService } from '../shared/http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HobbiesService {
-  private apiUrl = 'http://localhost:3000/hobbies';
-  private hobbies$: Observable<Hobby[]> = of(hobbies);
-
-  constructor(private http: HttpClient) {}
+  constructor(private httpService: HttpService) {}
 
   public fetchHobbies(): Observable<Hobby[]> {
-    this.hobbies$ = this.http.get<Hobby[]>(this.apiUrl);
-    return this.hobbies$;
+    return this.httpService.get<Hobby[]>('hobbies');
   }
 }
