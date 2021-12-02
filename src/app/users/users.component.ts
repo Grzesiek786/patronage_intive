@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Hobby } from 'src/shared/hobby.interface';
 import { User } from 'src/shared/user.interface';
@@ -7,14 +7,26 @@ import { UsersService } from '../services/users.service';
 import { Destroyable } from '../shared/destroyable';
 import { takeUntil } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class UsersComponent extends Destroyable implements OnInit {
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   public hobbies: Hobby[] = [];
+  public isTableExpanded: boolean = false;
 
   public displayedColumns: string[] = [
     'name',
@@ -28,6 +40,7 @@ export class UsersComponent extends Destroyable implements OnInit {
     'action',
   ];
   public dataSource: MatTableDataSource<User>;
+  public expandedElement: User | null
 
   constructor(
     private usersService: UsersService,
@@ -42,8 +55,10 @@ export class UsersComponent extends Destroyable implements OnInit {
 
     combineLatest([users$, hobbies$])
       .pipe(takeUntil(this.destroyed$))
-      .subscribe(([users, hobbies]) =>
+      .subscribe(([users, hobbies]) => {
         this.handleUserWithHobbiesSubscription(users, hobbies)
+        console.log(this.dataSource);
+      }
       );
   }
 
@@ -54,10 +69,22 @@ export class UsersComponent extends Destroyable implements OnInit {
       }
 
       user.hobbies.forEach((hobbyName: string) => {
-        const foundHobby: Hobby = hobbies.find((searchedHobby: Hobby) => searchedHobby.id === hobbyName);
+        const foundHobby: Hobby = hobbies.find(
+          (searchedHobby: Hobby) => searchedHobby.id === hobbyName
+        );
         user.hobbyNames.push(foundHobby.name);
       });
+
     });
     this.dataSource = new MatTableDataSource<User>(users);
+    this.dataSource.paginator = this.paginator;
+  }
+
+  public toggleTableRows(): void {
+    this.isTableExpanded = !this.isTableExpanded;
+
+    this.dataSource.data.forEach((row: any) => {
+      row.isExpanded = this.isTableExpanded;
+    })
   }
 }
