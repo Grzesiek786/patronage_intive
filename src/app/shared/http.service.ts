@@ -19,4 +19,9 @@ export class HttpService {
   private prepareFullUrl(url: string): string {
     return `${this.apiUrl}/${url}`;
   }
+
+  public delUser<T>(id: string): Observable<T> {
+    const url: string = `${this.apiUrl}/${id}`;
+    return this.httpClient.delete<T>(url);
+  }
 }

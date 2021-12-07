@@ -54,29 +54,23 @@
       <td mat-cell *matCellDef="let element">
         <div class="button">
           <button mat-raised-button color="primary" (click)="element.isExpanded = !element.isExpanded">Szczegóły</button>
-          <button mat-raised-button color="warn">Usuń</button>
+          <button mat-raised-button color="warn" (click)="deleteUser(element)">Usuń</button>
         </div>
       </td>
     </ng-container>
-    <!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef> {{column!='action'?column:''}} </th>
-      <td mat-cell *matCellDef="let element">
-        {{element[column]}}
-        <button mat-raised-button color="primary" *ngIf="column == 'action'"
-        (click)="element.isExpanded = !element.isExpanded">Szczegóły</button>
-          <button mat-raised-button color="warn" *ngIf="column == 'action'">Usuń</button>
-        </td>
-    </ng-container> -->
 
     <ng-container matColumnDef="expandedDetail">
       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
 
         <div class="row student-element-detail" [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
-          <mat-list>
-            <div *ngFor="let hobby of element.hobbyNames">
-              {{ hobby }}
-            </div>
-          </mat-list>
+          <div class="expansion-container">
+            <h3>Hobbies</h3>
+            <mat-list>
+              <div *ngFor="let hobby of element.hobbyNames">
+                {{ hobby }}
+              </div>
+            </mat-list>
+          </div>
         </div>
 
       </td>
@@ -84,11 +78,11 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let element; columns: displayedColumns;"
-        class="example-element-row"
+        class="student-element-row"
         [class.example-expanded-row]="element.isExpanded"
         >
     </tr>
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="student-detail-row"></tr>
   </table>
   <mat-paginator
     showFirstLastButtons
