@@ -90,4 +90,9 @@ export class UsersComponent extends Destroyable implements OnInit {
   private deleteUser(users: User[]) {
     console.log(users);
   }
+
+  public editUser(user: User) {
+    console.log(user);
+    
+  }
 }

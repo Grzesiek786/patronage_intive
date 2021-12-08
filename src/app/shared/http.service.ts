@@ -35,4 +35,9 @@ export class HttpService {
   public addUser<T>(user: User): Observable<T> {
     return this.httpClient.post<T>(this.apiUrl, user, httpOptions);
   }
+
+  public updateUser<T>(user: User): Observable<T> {
+    const url: string = `${this.apiUrl}/${user.id}`;
+    return this.httpClient.put<T>(url, user, httpOptions);
+  }
 }

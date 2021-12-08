@@ -1,13 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {
-  Form,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Location } from '@angular/common';
 import { Hobby } from 'src/shared/hobby.interface';
 import { HobbiesService } from '../services/hobbies.service';
 import { UsersService } from '../services/users.service';
@@ -29,7 +24,8 @@ export class AddUserComponent extends Destroyable implements OnInit {
   constructor(
     public fb: FormBuilder,
     private hobbiesService: HobbiesService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private location: Location
   ) {
     super();
   }
@@ -78,5 +74,9 @@ export class AddUserComponent extends Destroyable implements OnInit {
     hobbies$.pipe(takeUntil(this.destroyed$)).subscribe((hobbies: Hobby[]) => {
       this.hobbies = hobbies;
     });
+  }
+
+  public goBack(): void {
+    this.location.back();
   }
 }
