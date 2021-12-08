@@ -63,7 +63,6 @@ export class UsersComponent extends Destroyable implements OnInit {
       .pipe(takeUntil(this.destroyed$))
       .subscribe(([users, hobbies]) => {
         this.handleUserWithHobbiesSubscription(users, hobbies);
-        this.deleteUser(users);
       });
   }
 
@@ -87,12 +86,14 @@ export class UsersComponent extends Destroyable implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  private deleteUser(users: User[]) {
-    console.log(users);
+  public deleteUser(user: User): void {
+    // this.usersService.deleteUser(user).subscribe(() => {
+
+    // })
+    console.log(user);
   }
 
-  public editUser(user: User) {
+  public editUser(user: User): void {
     console.log(user);
-    
   }
 }

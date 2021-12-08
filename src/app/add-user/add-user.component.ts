@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Hobby } from 'src/shared/hobby.interface';
 import { HobbiesService } from '../services/hobbies.service';
 import { UsersService } from '../services/users.service';
 import { Destroyable } from '../shared/destroyable';
+import { User } from 'src/shared/user.interface';
 
 @Component({
   selector: 'app-add-user',
@@ -47,11 +48,12 @@ export class AddUserComponent extends Destroyable implements OnInit {
   }
 
   public submit(): void {
-    if (!this.form.valid) return;
-    console.log(this.form.value);
-    console.log(this.form.get('name').value);
-    const user = {
-      id: Date.now(),
+    if (!this.form.valid) {
+      return;
+    }
+
+    const user: User = {
+      id: Date.now() + '',
       name: this.form.get('name').value,
       lastName: this.form.get('lastName').value,
       email: this.form.get('email').value,
@@ -69,11 +71,12 @@ export class AddUserComponent extends Destroyable implements OnInit {
   }
 
   private getHobbies(): void {
-    const hobbies$: Observable<Hobby[]> = this.hobbiesService.fetchHobbies();
-
-    hobbies$.pipe(takeUntil(this.destroyed$)).subscribe((hobbies: Hobby[]) => {
-      this.hobbies = hobbies;
-    });
+    this.hobbiesService
+      .fetchHobbies()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((hobbies: Hobby[]) => {
+        this.hobbies = hobbies;
+      });
   }
 
   public goBack(): void {

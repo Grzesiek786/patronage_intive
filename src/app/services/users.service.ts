@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/shared/user.interface';
 import { HttpService } from '../shared/http.service';
@@ -17,7 +17,7 @@ export class UsersService {
   }
 
   public deleteUser(user: User): Observable<User> {
-    return this.httpService.delUser<User>(user.id);
+    return this.httpService.delUser<User>(user);
   }
 
   public addUser(user: User): Observable<User> {

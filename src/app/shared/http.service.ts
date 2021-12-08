@@ -27,8 +27,8 @@ export class HttpService {
     return `${this.apiUrl}/${url}`;
   }
 
-  public delUser<T>(id: string): Observable<T> {
-    const url: string = `${this.apiUrl}/${id}`;
+  public delUser<T>(user: User): Observable<T> {
+    const url: string = `${this.apiUrl}/${user.id}`;
     return this.httpClient.delete<T>(url);
   }
 
