@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 import { User } from 'src/shared/user.interface';
 import { HttpService } from '../shared/http.service';
 
@@ -9,22 +7,21 @@ import { HttpService } from '../shared/http.service';
   providedIn: 'root',
 })
 export class UsersService {
-
-  constructor(private httpService: HttpService, private httpClient: HttpClient) {}
+  constructor(private httpService: HttpService) {}
 
   public fetchUsers(): Observable<User[]> {
     return this.httpService.get<User[]>('users');
   }
 
   public deleteUser(user: User): Observable<User> {
-    return this.httpService.delUser<User>(user);
+    return this.httpService.delete<User>(user);
   }
 
   public addUser(user: User): Observable<User> {
-    return this.httpService.addUser<User>(user);
+    return this.httpService.post<User>(user);
   }
 
   public updateUser(user: User): Observable<User> {
-    return this.httpService.updateUser<User>(user);
+    return this.httpService.put<User>(user);
   }
 }
