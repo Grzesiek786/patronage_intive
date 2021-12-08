@@ -14,7 +14,7 @@ export class UsersService {
   }
 
   public deleteUser(user: User): Observable<User> {
-    return this.httpService.delete<User>(user);
+    return this.httpService.delete<User>(user.id, 'users');
   }
 
   public addUser(user: User): Observable<User> {
@@ -22,6 +22,6 @@ export class UsersService {
   }
 
   public updateUser(user: User): Observable<User> {
-    return this.httpService.put<User>(user);
+    return this.httpService.put<User>(user, 'users', user.id);
   }
 }

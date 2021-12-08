@@ -27,17 +27,17 @@ export class HttpService {
     return `${this.apiUrl}/${url}`;
   }
 
-  public delete<T>(user: User): Observable<T> {
-    const url: string = `${this.apiUrl}/${user.id}`;
-    return this.httpClient.delete<T>(url);
+  public delete<T>(id: string, url: string): Observable<T> {
+    const deleteUrl: string = `${this.prepareFullUrl(url)}/${id}`
+    return this.httpClient.delete<T>(deleteUrl);
   }
 
   public post<T>(t: T, url: string): Observable<T> {
     return this.httpClient.post<T>(this.prepareFullUrl(url), t, httpOptions);
   }
 
-  public put<T>(user: User): Observable<T> {
-    const url: string = `${this.apiUrl}/${user.id}`;
-    return this.httpClient.put<T>(url, user, httpOptions);
+  public put<T>(t: T, url: string, id: string): Observable<T> {
+    const putUrl: string = `${this.prepareFullUrl(url)}/${id}`;
+    return this.httpClient.put<T>(putUrl, t, httpOptions);
   }
 }

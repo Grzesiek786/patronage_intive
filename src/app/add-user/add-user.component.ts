@@ -6,6 +6,7 @@ import { Hobby } from 'src/shared/hobby.interface';
 import { HobbiesService } from '../services/hobbies.service';
 import { Destroyable } from '../shared/destroyable';
 import { User } from 'src/shared/user.interface';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-add-user',
@@ -23,6 +24,7 @@ export class AddUserComponent extends Destroyable implements OnInit {
   constructor(
     public fb: FormBuilder,
     private hobbiesService: HobbiesService,
+    private usersService: UsersService,
     private location: Location
   ) {
     super();
@@ -62,6 +64,9 @@ export class AddUserComponent extends Destroyable implements OnInit {
       hobbies: this.form.get('hobbies').value,
     };
     console.log(user);
+    this.usersService.addUser(user).subscribe(() => {
+      
+    })
   }
 
   private getHobbies(): void {
