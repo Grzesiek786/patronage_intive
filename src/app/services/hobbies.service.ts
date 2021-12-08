@@ -12,4 +12,8 @@ export class HobbiesService {
   public fetchHobbies(): Observable<Hobby[]> {
     return this.httpService.get<Hobby[]>('hobbies');
   }
+
+  public addHobby(hobby: Hobby): Observable<Hobby> {
+    return this.httpService.post<Hobby>(hobby, 'hobbies');
+  }
 }

@@ -32,8 +32,8 @@ export class HttpService {
     return this.httpClient.delete<T>(url);
   }
 
-  public post<T>(user: User): Observable<T> {
-    return this.httpClient.post<T>(this.apiUrl, user, httpOptions);
+  public post<T>(t: T, url: string): Observable<T> {
+    return this.httpClient.post<T>(this.prepareFullUrl(url), t, httpOptions);
   }
 
   public put<T>(user: User): Observable<T> {

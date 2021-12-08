@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, pipe } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Hobby } from 'src/shared/hobby.interface';
 import { HobbiesService } from '../services/hobbies.service';
-import { UsersService } from '../services/users.service';
 import { Destroyable } from '../shared/destroyable';
 import { User } from 'src/shared/user.interface';
 
@@ -25,7 +23,6 @@ export class AddUserComponent extends Destroyable implements OnInit {
   constructor(
     public fb: FormBuilder,
     private hobbiesService: HobbiesService,
-    private usersService: UsersService,
     private location: Location
   ) {
     super();
@@ -38,7 +35,7 @@ export class AddUserComponent extends Destroyable implements OnInit {
       email: [null, [Validators.required, Validators.pattern(this.emailRegx)]],
       age: [null, Validators.required],
       gender: [null, [Validators.required]],
-      phone: ['(222) 222-2222', Validators.required],
+      phone: [null, Validators.required],
       address: [null, Validators.required],
       dateOfBirth: [null, Validators.required],
       hobbies: [null],
@@ -65,9 +62,6 @@ export class AddUserComponent extends Destroyable implements OnInit {
       hobbies: this.form.get('hobbies').value,
     };
     console.log(user);
-    // this.usersService.addUser(user).subscribe(() => {
-
-    // })
   }
 
   private getHobbies(): void {
