@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Hobby } from 'src/shared/hobby.interface';
 import { HobbiesService } from '../services/hobbies.service';
+import { UsersService } from '../services/users.service';
 import { Destroyable } from '../shared/destroyable';
 
 @Component({
@@ -25,7 +26,11 @@ export class AddUserComponent extends Destroyable implements OnInit {
     /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
   public;
 
-  constructor(public fb: FormBuilder, private hobbiesService: HobbiesService) {
+  constructor(
+    public fb: FormBuilder,
+    private hobbiesService: HobbiesService,
+    private usersService: UsersService
+  ) {
     super();
   }
 
@@ -36,7 +41,7 @@ export class AddUserComponent extends Destroyable implements OnInit {
       email: [null, [Validators.required, Validators.pattern(this.emailRegx)]],
       age: [null, Validators.required],
       gender: [null, [Validators.required]],
-      phone: ['+1 (222) 222-2222', Validators.required],
+      phone: ['(222) 222-2222', Validators.required],
       address: [null, Validators.required],
       dateOfBirth: [null, Validators.required],
       hobbies: [null],
@@ -48,6 +53,23 @@ export class AddUserComponent extends Destroyable implements OnInit {
   public submit(): void {
     if (!this.form.valid) return;
     console.log(this.form.value);
+    console.log(this.form.get('name').value);
+    const user = {
+      id: Date.now(),
+      name: this.form.get('name').value,
+      lastName: this.form.get('lastName').value,
+      email: this.form.get('email').value,
+      age: this.form.get('age').value,
+      gender: this.form.get('gender').value,
+      phoneNumber: this.form.get('phone').value,
+      address: this.form.get('address').value,
+      dateOfBirth: this.form.get('dateOfBirth').value,
+      hobbies: this.form.get('hobbies').value,
+    };
+    console.log(user);
+    // this.usersService.addUser(user).subscribe(() => {
+
+    // })
   }
 
   private getHobbies(): void {

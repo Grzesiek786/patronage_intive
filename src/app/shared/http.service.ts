@@ -1,7 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from 'src/shared/user.interface';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +30,9 @@ export class HttpService {
   public delUser<T>(id: string): Observable<T> {
     const url: string = `${this.apiUrl}/${id}`;
     return this.httpClient.delete<T>(url);
+  }
+
+  public addUser<T>(user: User): Observable<T> {
+    return this.httpClient.post<T>(this.apiUrl, user, httpOptions);
   }
 }

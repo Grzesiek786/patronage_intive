@@ -17,6 +17,10 @@ export class UsersService {
   }
 
   public deleteUser(user: User): Observable<User> {
-    return this.httpClient.delete<User>(user.id);
+    return this.httpService.delUser<User>(user.id);
+  }
+
+  public addUser(user: User): Observable<User> {
+    return this.httpService.addUser<User>(user);
   }
 }
