@@ -87,9 +87,9 @@ export class UsersComponent extends Destroyable implements OnInit {
   }
 
   public deleteUser(user: User): void {
-    // this.usersService.deleteUser(user).subscribe(() => {
-
-    // })
+    this.usersService.deleteUser(user).subscribe(() => {
+      console.log(user);
+    });
     console.log(user);
   }
 

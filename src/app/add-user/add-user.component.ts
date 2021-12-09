@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Hobby } from 'src/shared/hobby.interface';
@@ -40,7 +40,7 @@ export class AddUserComponent extends Destroyable implements OnInit {
       phone: [null, Validators.required],
       address: [null, Validators.required],
       dateOfBirth: [null, Validators.required],
-      hobbies: [null],
+      hobbies: ['6193ce840b1d30d78d2e1413'],
     });
 
     this.getHobbies();
@@ -56,17 +56,16 @@ export class AddUserComponent extends Destroyable implements OnInit {
       name: this.form.get('name').value,
       lastName: this.form.get('lastName').value,
       email: this.form.get('email').value,
-      age: this.form.get('age').value,
+      age: +this.form.get('age').value,
       gender: this.form.get('gender').value,
       phoneNumber: this.form.get('phone').value,
       address: this.form.get('address').value,
       dateOfBirth: this.form.get('dateOfBirth').value,
-      hobbies: this.form.get('hobbies').value,
+      hobbies: [this.form.get('hobbies').value],
     };
     console.log(user);
-    this.usersService.addUser(user).subscribe(() => {
-      
-    })
+    // this.usersService.addUser(user).subscribe(() => {
+    // });
   }
 
   private getHobbies(): void {
