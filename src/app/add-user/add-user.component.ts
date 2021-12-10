@@ -7,6 +7,7 @@ import { HobbiesService } from '../services/hobbies.service';
 import { Destroyable } from '../shared/destroyable';
 import { User } from 'src/shared/user.interface';
 import { UsersService } from '../services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -25,7 +26,8 @@ export class AddUserComponent extends Destroyable implements OnInit {
     public fb: FormBuilder,
     private hobbiesService: HobbiesService,
     private usersService: UsersService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {
     super();
   }
@@ -40,7 +42,7 @@ export class AddUserComponent extends Destroyable implements OnInit {
       phone: [null, Validators.required],
       address: [null, Validators.required],
       dateOfBirth: [null, Validators.required],
-      hobbies: ['6193ce840b1d30d78d2e1413'],
+      hobbies: [null],
     });
 
     this.getHobbies();
@@ -61,11 +63,11 @@ export class AddUserComponent extends Destroyable implements OnInit {
       phoneNumber: this.form.get('phone').value,
       address: this.form.get('address').value,
       dateOfBirth: this.form.get('dateOfBirth').value,
-      hobbies: [this.form.get('hobbies').value],
+      hobbies: this.form.get('hobbies').value,
     };
     console.log(user);
-    // this.usersService.addUser(user).subscribe(() => {
-    // });
+    this.usersService.addUser(user).subscribe(() => {});
+    this.router.navigate(['/users']);
   }
 
   private getHobbies(): void {
