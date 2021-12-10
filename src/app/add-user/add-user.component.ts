@@ -66,7 +66,11 @@ export class AddUserComponent extends Destroyable implements OnInit {
       hobbies: this.form.get('hobbies').value,
     };
     console.log(user);
-    this.usersService.addUser(user).subscribe(() => {});
+    this.usersService.addUser(user)
+    .pipe(
+      takeUntil(this.destroyed$)
+    )
+    .subscribe();
     this.router.navigate(['/users']);
   }
 
