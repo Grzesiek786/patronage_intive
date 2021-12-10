@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { catchError, takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Hobby } from 'src/shared/hobby.interface';
 import { HobbiesService } from '../services/hobbies.service';
@@ -68,10 +68,10 @@ export class AddUserComponent extends Destroyable implements OnInit {
     console.log(user);
     this.usersService.addUser(user)
     .pipe(
-      takeUntil(this.destroyed$)
-    )
-    .subscribe();
-    this.router.navigate(['/users']);
+      catchError(err => {throw `Nie dodano użytkownika ${err}`}),
+      takeUntil(this.destroyed$))
+    .subscribe(() => this.router.navigate(['/users']));
+
   }
 
   private getHobbies(): void {

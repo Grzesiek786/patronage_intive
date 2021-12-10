@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Hobby } from 'src/shared/hobby.interface';
 import { User } from 'src/shared/user.interface';
@@ -15,8 +15,6 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { MatSort, Sort } from '@angular/material/sort';
-import { compileDeclareComponentFromMetadata } from '@angular/compiler';
 
 @Component({
   selector: 'app-users',
@@ -35,10 +33,7 @@ import { compileDeclareComponentFromMetadata } from '@angular/compiler';
 })
 export class UsersComponent extends Destroyable implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-
   public hobbies: Hobby[] = [];
-  public sortedData: User[];
 
   public displayedColumns: string[] = [
     'name',
@@ -109,39 +104,5 @@ export class UsersComponent extends Destroyable implements OnInit {
 
   public editUser(user: User): void {
     console.log(user);
-  }
-
-  public sortData(sort: Sort) {
-    const data = this.dataSource.filteredData.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
-    }
-
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name':
-          return this.compare(a.name, b.name, isAsc);
-        case 'lastName':
-          return this.compare(a.lastName, b.lastName, isAsc);
-        case 'email':
-          return this.compare(a.email, b.email, isAsc);
-        case 'age':
-          return this.compare(a.age, b.age, isAsc);
-        case 'gender':
-          return this.compare(a.gender, b.gender, isAsc);
-        case 'phone':
-          return this.compare(a.phoneNumber, b.phoneNumber, isAsc);
-        case 'address':
-          return this.compare(a.address, b.address, isAsc);
-        case 'dateOfBirth':
-          return this.compare(a.dateOfBirth, b.dateOfBirth, isAsc);
-      }
-    });
-  }
-
-  private compare(a: number | string, b: number | string, isAsc: boolean) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }
