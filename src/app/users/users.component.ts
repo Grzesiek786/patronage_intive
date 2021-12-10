@@ -15,6 +15,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-users',
@@ -33,7 +34,10 @@ import {
 })
 export class UsersComponent extends Destroyable implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   public hobbies: Hobby[] = [];
+  sortedData: Hobby[] = [];
 
   public displayedColumns: string[] = [
     'name',
@@ -84,6 +88,7 @@ export class UsersComponent extends Destroyable implements OnInit {
     });
     this.dataSource = new MatTableDataSource<User>(users);
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   public deleteUser(user: User): void {
@@ -104,5 +109,41 @@ export class UsersComponent extends Destroyable implements OnInit {
 
   public editUser(user: User): void {
     console.log(user);
+  }
+
+  public sortData(sort: Sort) {
+    const data = this.dataSource.filteredData.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return this.compare(a.name, b.name, isAsc);
+        case 'lastName':
+          return this.compare(a.lastName, b.lastName, isAsc);
+        case 'email':
+          return this.compare(a.email, b.email, isAsc);
+        case 'gender':
+          return this.compare(a.gender, b.gender, isAsc);
+        case 'address':
+          return this.compare(a.address, b.address, isAsc);
+        case 'age':
+          return this.compare(a.age, b.age, isAsc);
+        case 'dateOfBirth':
+          return this.compare(a.dateOfBirth, b.dateOfBirth, isAsc);
+        case 'phone':
+            return this.compare(a.phoneNumber, b.phoneNumber, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+
+  private compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }
